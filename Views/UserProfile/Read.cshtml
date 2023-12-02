@@ -1,0 +1,98 @@
+﻿@using APISeguraCRUD.Models.ViewModel
+@model List<UserProfileModel>
+@{
+    ViewBag.Title = "Read";
+}
+
+<style>
+    .user-profile-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+        .user-profile-table th,
+        .user-profile-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-profile-table th {
+            background-color: #103A49;
+            color: white;
+        }
+
+    .api-endpoint-container {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+        .api-endpoint-container h3 {
+            color: #103A49;
+        }
+
+        .api-endpoint-container p {
+            color: #555;
+        }
+
+        .api-endpoint-container code {
+            display: block;
+            padding: 10px;
+            background-color: #eee;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .api-endpoint-container a {
+            color: #1E88E5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    .user-profile-container {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+        .user-profile-container h2 {
+            color: #103A49;
+        }
+
+
+</style>
+
+<table class="user-profile-table">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+    </tr>
+    @foreach (var userP in Model)
+    {
+        <tr>
+            <td>@userP.UserProfileId</td>
+            <td>@userP.FirstName</td>
+            <td>@userP.LastName</td>
+            <td>@userP.Email</td>
+        </tr>
+    }
+</table>
+
+
+<div class="api-endpoint-container">
+    <h3>API Endpoint</h3>
+    <p>Para obtener los datos a través de la API, utiliza el siguiente enlace:</p>
+    <code>
+        GET: <a href="@Url.Action("GetUserProfilesApi", "UserProfileController", null, "http")">/api/userprofile</a>
+    </code>
+</div>
+
+

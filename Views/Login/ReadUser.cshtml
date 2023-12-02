@@ -1,0 +1,92 @@
+﻿@using APISeguraCRUD.Models.ViewModel
+@model List<LoginModel>
+@{
+    ViewBag.Title = "Read";
+}
+
+<style>
+    .user-profile-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+        .user-profile-table th,
+        .user-profile-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-profile-table th {
+            background-color: #103A49;
+            color: white;
+        }
+
+    .api-endpoint-container {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+        .api-endpoint-container h3 {
+            color: #103A49;
+        }
+
+        .api-endpoint-container p {
+            color: #555;
+        }
+
+        .api-endpoint-container code {
+            display: block;
+            padding: 10px;
+            background-color: #eee;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .api-endpoint-container a {
+            color: #1E88E5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    .user-profile-container {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+        .user-profile-container h2 {
+            color: #103A49;
+        }
+</style>
+
+<input type="button" value="Insertar" onclick="document.location.href='@Url.Content("~/Login/New")'" />
+<table class="user-profile-table">
+    <tr>
+        <th>ID</th>
+        <th>Usuario</th>
+        <th>Contraseña</th>
+    </tr>
+    @foreach (var users in Model)
+    {
+        <tr>
+            <td>@users.UserId</td>
+            <td>@users.Username</td>
+            <td>@users.Password</td>
+        </tr>
+    }
+</table>
+
+<div class="api-endpoint-container">
+    <h3>API Endpoint</h3>
+    <p>Para obtener los datos a través de la API, utiliza el siguiente enlace:</p>
+    <code>
+        GET: <a href="@Url.Action("GetUserApi", "LoginController", null, "http")">/api/user</a>
+    </code>
+</div>

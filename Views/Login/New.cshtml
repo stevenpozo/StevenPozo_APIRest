@@ -1,0 +1,142 @@
+﻿@model APISeguraCRUD.Models.ViewModel.LoginModel
+@{
+    ViewBag.Title = "New";
+}
+
+<style>
+    /* Estilos para el formulario */
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para los campos del formulario */
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    /* Estilos para el botón */
+    input[type="button"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+    .api-endpoint-container {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-top: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+        .api-endpoint-container h3 {
+            color: #103A49;
+        }
+
+        .api-endpoint-container p {
+            color: #555;
+        }
+
+        .api-endpoint-container code {
+            display: block;
+            padding: 10px;
+            background-color: #eee;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .api-endpoint-container a {
+            color: #1E88E5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    .user-profile-container {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+        .user-profile-container h2 {
+            color: #103A49;
+        }
+</style>
+
+<h2>New</h2>
+
+<form method="post">
+    <div>
+        <div>
+            @Html.LabelFor(d => d.Username)
+            @Html.TextBoxFor(d => d.Username, new { id = "Username" })
+        </div>
+        <div>
+            @Html.LabelFor(d => d.Password)
+            @Html.TextBoxFor(d => d.Password, new { id = "Password", type = "password" })
+        </div>
+        <input type="button" onclick="Add()" value="Guardar" />
+    </div>
+</form>
+
+<div class="api-endpoint-container">
+    <h3>API Endpoint</h3>
+
+    <p>Para crear un nuevo usuario a través de la API, utiliza el siguiente enlace:</p>
+
+    <code>
+        POST: <a href="@Url.Action("CreateUserApi", "Login", null, "http")">/api/users</a>
+    </code>
+</div>
+
+
+<script>
+    var url = "@Url.Content("~/Login/Save")"
+    function Add() {
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                Username: document.getElementById("Username").value,
+                Password: document.getElementById("Password").value
+            }),
+            headers: {
+                'Accept': "application/json",
+                "Content-Type": "application/json"
+            }
+        }).then(function (response) {
+            if (response.ok)
+                return response.text()
+            else
+                alert("Error al ejecutar :V")
+        }).then(function (Data) {
+            if (Data != "1") {
+                alert(Data)
+            } else {
+                document.location.href = "@Url.Content("~/Login/")";
+            }
+        })
+    }
+</script>

@@ -1,0 +1,86 @@
+﻿@model APISeguraCRUD.Models.ViewModel.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<style>
+
+
+    .bodyForm {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #2c3e50, #3498db);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    #login-form {
+        background: linear-gradient(to bottom, #34495e, #2c3e50);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 300px;
+    }
+
+        #login-form h2 {
+            color: #ecf0f1;
+            text-align: center;
+        }
+
+        #login-form label {
+            color: #bdc3c7;
+            display: block;
+            margin: 10px 0;
+        }
+
+        #login-form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        #login-form button {
+            background-color: #3498db;
+            color: #ecf0f1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+            #login-form button:hover {
+                background-color: #2980b9;
+            }
+
+
+</style>
+<div class="bodyForm">
+    <div id="login-form">
+        <h2>Login</h2>
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        {
+            @Html.LabelFor(model => model.Username)
+            @Html.TextBoxFor(model => model.Username, new { id = "username", required = "required" })
+
+            @Html.LabelFor(model => model.Password)
+            @Html.PasswordFor(model => model.Password, new { id = "password", required = "required" })
+
+            <button type="submit">Login</button>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="error-message">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+    </div>
+</div>
